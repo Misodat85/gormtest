@@ -23,7 +23,7 @@ func init() {
 		Pass: "p2hack",//password
 		IP:   "127.0.0.1",//IPアドレス
 		Port: "3306",//ポート番号
-		Name: "test",//テーブル名
+		Name: "test2",//テーブル名
 	}
 
 	err := checkElements(c)
