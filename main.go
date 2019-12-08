@@ -4,10 +4,10 @@ import(
 	"time"
 	"fmt"
 	"github.com/jinzhu/gorm"
-	"C:/Users/Takuya/go/src/github.com/gormtest/config"
-	"C:/Users/Takuya/go/src/github.com/model"
-	//"$GOPATH/src/github.com/gormtest/controller"
+	"github.com/Misodat85/gormtest/config"
+	"github.com/Misodat85/gormtest/model"
 )
+
 /* TODO:
 ルーティングをせずgormのmethodを用いてデータベースとの接続とテーブルの作成を行う。
 テーブルを作成後、テーブルをデータベースから取得してに全て表示する。
@@ -38,7 +38,7 @@ func initializeDataBase()(*gorm.DB, error){
 	//var data data.Data
 	var err error
 	var count time.Duration
-	token := config.GetConnectionToken()//GetConnectionTokenが出力した文字列をtokenに入れる
+	token := config.GetCo@nnectionToken()//GetConnectionTokenが出力した文字列をtokenに入れる
 	user := User{
 		ID:0001,
 		NAME:"takuya",
