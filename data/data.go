@@ -3,8 +3,9 @@ package data
 import(
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
-	"$GOPATH/src/github.com/gormtest/model"
+	//"github.com/Misodat85/gormtest/model"
 )
+
 /*
 TODO:
 データベースのテーブルに登録するキーとバリューを
@@ -15,7 +16,7 @@ TODO:
 type Data struct {
 	DB	*gorm.DB
 }
-
+/*
 
 func dataGenerator(data *Data){
 	var user, data model.User
@@ -29,3 +30,5 @@ func dataGenerator(data *Data){
 	"email": "sample@example.com",
 	"password": "hogehoge"
 }
+
+*/

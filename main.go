@@ -6,6 +6,7 @@ import(
 	"github.com/jinzhu/gorm"
 	"github.com/Misodat85/gormtest/config"
 	"github.com/Misodat85/gormtest/model"
+	//"github.com/Misodat85/gormtest/data"
 )
 
 /* TODO:
@@ -22,12 +23,13 @@ func (ctrl *IsController)SignupHandler(context *gin.Context) {
 */
 
 func main(){
-
+	//var data data.Data
 	//データを作り、DBに接続しテーブルを作成する。
 	db, err := initializeDataBase()
 	if err != nil {
-		fmt.printf("Faild connecting mysql")
+		fmt.Printf("Faild connecting mysql")
 	}
+	defer db.Close()
 	/*TODO: 
 	さきほど初期化した同じテーブルに複数回データを登録する。
 	*/
@@ -35,15 +37,15 @@ func main(){
 
 func initializeDataBase()(*gorm.DB, error){
 	var db *gorm.DB
-	//var data data.Data
+	
 	var err error
 	var count time.Duration
-	token := config.GetCo@nnectionToken()//GetConnectionTokenが出力した文字列をtokenに入れる
-	user := User{
-		ID:0001,
+	token := config.GetConnectionToken()//GetConnectionTokenが出力した文字列をtokenに入れる
+	user := model.User{
+		ID:"0001",
 		NAME:"takuya",
-		EMAIL:"sample1@sample.com"
-		PASSWORD:"passwd"
+		EMAIL:"sample1@sample.com",
+		PASSWORD:"password",
 	}
 	//DBへの接続を複数回試みる処理
 	count = 1
@@ -54,6 +56,7 @@ func initializeDataBase()(*gorm.DB, error){
 		db,err = gorm.Open("mysql",token)//tokenを用いてDBに接続をする
 		if err == nil{
 			db.AutoMigrate(&user)//modelで構造体として定義したメンバに合わせてDBにテーブルを作成する。
+			fmt.Println("Created table in mysql")
 			return db,nil
 		}
 		time.Sleep(3 * time.Second)
