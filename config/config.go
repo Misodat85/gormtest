@@ -19,11 +19,11 @@ const accessTokenTemplate = "%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc
 
 func init() {
 	c = dataBaseConfig{
-		User: "root",//mysqlのユーザー名
-		Pass: "p2hack",//password
-		IP:   "127.0.0.1",//IPアドレス
-		Port: "3306",//ポート番号
-		Name: "test",//テーブル名
+		User: "root",      //mysqlのユーザー名
+		Pass: "p2hack",    //password
+		IP:   "127.0.0.1", //IPアドレス
+		Port: "3306",      //ポート番号
+		Name: "test1"      ,//
 	}
 
 	err := checkElements(c)
