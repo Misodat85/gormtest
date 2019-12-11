@@ -1,14 +1,15 @@
 package main
 
 import(
-	"time"
+	//"time"
 	"fmt"
+	"log"
 	"github.com/jinzhu/gorm"
 	"github.com/Misodat85/gormtest/config"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"github.com/Misodat85/gormtest/model"
-	//"github.com/Misodat85/gormtest/data"
+	"github.com/Misodat85/gormtest/data"
 )
-
 /* TODO:
 ルーティングをせずgormのmethodを用いてデータベースとの接続とテーブルの作成を行う。
 テーブルを作成後、テーブルをデータベースから取得してに全て表示する。
@@ -23,44 +24,59 @@ func (ctrl *IsController)SignupHandler(context *gin.Context) {
 */
 
 func main(){
-	//var data data.Data
+	//var data model.User
 	//データを作り、DBに接続しテーブルを作成する。
 	db, err := initializeDataBase()
 	if err != nil {
 		fmt.Printf("Faild connecting mysql")
 	}
-	defer db.Close()
+	
+	
+	if db !=nil{
+		fmt.Printf("TODO List Registered")
+	}
+	db.Close()
 	/*TODO: 
 	さきほど初期化した同じテーブルに複数回データを登録する。
 	*/
+	
 }
 
 func initializeDataBase()(*gorm.DB, error){
 	var db *gorm.DB
-	
+	//var data data.Data
 	var err error
-	var count time.Duration
+	// var count time.Duration
 	token := config.GetConnectionToken()//GetConnectionTokenが出力した文字列をtokenに入れる
-	user := model.User{
-		ID:"0001",
-		NAME:"takuya",
-		EMAIL:"sample1@sample.com",
-		PASSWORD:"password",
-	}
+	
 	//DBへの接続を複数回試みる処理
-	count = 1
-	for {
-		if count > 5 {
-			return nil, fmt.Errorf("")
-		}
-		db,err = gorm.Open("mysql",token)//tokenを用いてDBに接続をする
-		if err == nil{
-			db.AutoMigrate(&user)//modelで構造体として定義したメンバに合わせてDBにテーブルを作成する。
-			fmt.Println("Created table in mysql")
-			return db,nil
-		}
-		time.Sleep(3 * time.Second)
-		count++
+	db,err = gorm.Open("mysql",token)//tokenを用いてDBに接続をする
+	if err == nil{
+		db.AutoMigrate(&model.User{})//modelで構造体として定義したメンバに合わせてDBにテーブルを作成する。
+		return db,nil
 	}
+	log.Fatal(err)
 	return nil, err
 }
+func modeChange(i int){
+	switch i {
+		case 0:
+			//TODO:データベースに日付とやることを登録する
+			data := data.DataGenerator()
+			db.Create(&data)
+		case 1:
+			//TODO:データベースからある日付のTODOListを引っ張ってくる
+			
+		case 2:
+			//TODO:内容を更新する
+	}
+}
+/*
+//TODO:データ登録をする
+func registerDataBase()(*gorm.DB,error){
+	var db *gorm.DB
+	var err error
+	db.Create(&model.User{})
+}
+
+*/
